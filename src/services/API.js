@@ -1,3 +1,4 @@
+import axios from 'axios';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import axios from 'axios';
 const fetchAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
     const { data } = yield axios.get("https://testbackend.nc-one.com/image");
     console.log(data);
