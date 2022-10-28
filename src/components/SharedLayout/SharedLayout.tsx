@@ -1,4 +1,3 @@
-import HomePage from "../../pages/HomePage/HomePage"
 import Container from "../Container/Container"
 import Header from "../Header/Header"
 import SideBar from "../SideBar/SideBar"
