@@ -1,3 +1,9 @@
+import s from '../FavoritesList/favoritesList.module.scss';
+import store from '../../globalState/store';
+import ItemCard from '../ItemCard/ItemCard';
+import favoriteCardStyles from './favoriteCardStyles';
+import { useNavigate } from 'react-router-dom';
+import servicesApi from '../../services/API';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,12 +13,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import s from '../FavoritesList/favoritesList.module.scss';
-import store from '../../globalState/store';
-import ItemCard from '../ItemCard/ItemCard';
-import favoriteCardStyles from './favoriteCardStyles';
-import { useNavigate } from 'react-router-dom';
-import servicesApi from '../../services/API';
+
 const FavoritesList = () => {
     const [favorites, setFavorites] = store.useGlobalState("favorites");
     const [singleItem, setSingleItem] = store.useGlobalState("singleItem");
@@ -26,9 +27,11 @@ const FavoritesList = () => {
             return;
         }
         try {
-            const response = yield servicesApi.fetchSingleProduct(id);
-            setSingleItem(response);
-            navigate(`/product/${id}`);
+            if (!singleItem) {
+                const response = yield servicesApi.fetchSingleProduct(id);
+                setSingleItem(response);
+                navigate(`/product/${id}`);
+            }
         }
         catch (error) {
             alert(error.message);

@@ -39,7 +39,7 @@ const SingleProductPage = () => {
             }
         }
         return () => setIsSinglePage(false);
-    }, [currentId, setIsSinglePage, singleItem, setSingleItem]);
+    }, [currentId, setIsSinglePage, singleItem, setSingleItem, setItems, items.length]);
     const handleClick = (id) => {
         const inspect = favorites.some(elem => elem.id === id);
         const currentItem = items.filter(elem => elem.id === id);

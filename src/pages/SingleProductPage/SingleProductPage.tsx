@@ -30,7 +30,7 @@ const SingleProductPage: React.FC = ():JSX.Element => {
                 } catch(error){alert(error.message)}
         }
         return () => setIsSinglePage(false)
-    }, [currentId, setIsSinglePage, singleItem, setSingleItem])
+    }, [currentId, setIsSinglePage, singleItem, setSingleItem, setItems, items.length])
 
     const handleClick = (id:Item['id']):void =>{
         const inspect = favorites.some(elem => elem.id === id)

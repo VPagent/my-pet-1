@@ -21,9 +21,11 @@ const FavoritesList:React.FC = ():JSX.Element=> {
           return
         }
         try{
-          const response = await servicesApi.fetchSingleProduct(id) 
-          setSingleItem(response)
-          navigate(`/product/${id}`)
+          if(!singleItem){
+            const response = await servicesApi.fetchSingleProduct(id) 
+            setSingleItem(response)
+            navigate(`/product/${id}`)
+          }
         } catch(error){alert(error.message)}
     }
     
