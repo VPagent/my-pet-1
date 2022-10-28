@@ -7,47 +7,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import React from 'react';
-import s from '../ProductList/productList.module.scss';
-import ItemCard from '../ItemCard/ItemCard';
+import s from '../FavoritesList/favoritesList.module.scss';
 import store from '../../globalState/store';
-import stylesCard from './cardStyles';
-import servicesApi from '../../services/API';
+import ItemCard from '../ItemCard/ItemCard';
+import favoriteCardStyles from './favoriteCardStyles';
 import { useNavigate } from 'react-router-dom';
-const ProductList = () => {
-    const [items] = store.useGlobalState("items");
+import servicesApi from '../../services/API';
+const FavoritesList = () => {
     const [favorites, setFavorites] = store.useGlobalState("favorites");
     const [singleItem, setSingleItem] = store.useGlobalState("singleItem");
     const navigate = useNavigate();
     const handleClick = (id) => {
-        const inspect = favorites.some(elem => elem.id === id);
-        const currentItem = items.filter(elem => elem.id === id);
-        if (inspect) {
-            const deletedArr = favorites.filter(elem => elem.id !== id);
-            setFavorites(() => deletedArr);
-            return;
-        }
-        setFavorites((prev) => [...prev, ...currentItem]);
+        const deletedArr = favorites.filter(elem => elem.id !== id);
+        setFavorites(deletedArr);
     };
     const handleClickOnCard = (event, id) => __awaiter(void 0, void 0, void 0, function* () {
         if (event.target.nodeName === "BUTTON") {
             return;
         }
         try {
-            if (!singleItem) {
-                const response = yield servicesApi.fetchSingleProduct(id);
-                setSingleItem(response);
-                navigate(`/product/${id}`);
-            }
+            const response = yield servicesApi.fetchSingleProduct(id);
+            setSingleItem(response);
+            navigate(`/product/${id}`);
         }
         catch (error) {
             alert(error.message);
         }
     });
     return (<div className={s.list}>
-            {items.length > 0 && items.map(elem => {
-            return <ItemCard key={elem.id} item={elem} styles={stylesCard} handleClick={handleClick} handleClickOnCard={handleClickOnCard}/>;
+            {favorites.length > 0 && favorites.map(elem => {
+            return <ItemCard key={elem.id} item={elem} styles={favoriteCardStyles} handleClick={handleClick} handleClickOnCard={handleClickOnCard}/>;
         })}
         </div>);
 };
-export default ProductList;
+export default FavoritesList;

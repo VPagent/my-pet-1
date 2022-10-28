@@ -1,8 +1,10 @@
 import { createGlobalState } from 'react-hooks-global-state';
 const initialState = {
     items: [],
-    favourites: []
+    favorites: [],
+    singleItem: null,
+    isSinglePage: false
 };
-const { useGlobalState, setGlobalState } = createGlobalState(initialState);
+const { useGlobalState } = createGlobalState(initialState);
 const store = { useGlobalState };
 export default store;

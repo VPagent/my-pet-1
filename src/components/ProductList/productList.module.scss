@@ -1,7 +1,12 @@
 
 .list{
-    width: auto;
+    width: 1170px;
     display: flex;
     flex-wrap: wrap;
 
+    margin-left: auto;
+
+}
+.item{
+    background-color: black;
 }

@@ -1,12 +1,21 @@
 import { createGlobalState } from 'react-hooks-global-state';
+import {Item} from '../components/ProductList/ProductList'
 
+type InitialState = {
+    items: Item[],
+    favorites: Item[],
+    singleItem: Item | null,
+    isSinglePage: boolean
+}
 
-const initialState = {
+const initialState:InitialState = {
     items:[],
-    favourites: []
+    favorites: [],
+    singleItem: null,
+    isSinglePage: false
 };
 
-const { useGlobalState, setGlobalState } = createGlobalState(initialState);
+const { useGlobalState } = createGlobalState(initialState);
 
 const store = {useGlobalState}
 

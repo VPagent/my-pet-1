@@ -1,36 +1,60 @@
+import React  from 'react';
 import s from '../ProductList/productList.module.scss'
+import ItemCard from '../ItemCard/ItemCard';
+import store from '../../globalState/store';
+import stylesCard from './cardStyles'
+import servicesApi from '../../services/API';
+import { useNavigate } from 'react-router-dom';
 
-
-type Props = {
-    arr?: Array<Item>,
-};
-
-// {
-//     "id": 5,
-//     "name": "Shloimys Sprinkles Cookies",
-//     "price": 8.99,
-//     "src": "/static/1665003905322.jpeg"
-//     },
-type Item = {
+export type Item = {
     id:number|string,
     name:string,
     price: string|number,
     src: string
 }
 
-const ProductList:React.FC<Props> = ({arr}:Props):JSX.Element =>{
+const ProductList:React.FC = ():JSX.Element =>{
 
+    const [items] = store.useGlobalState("items")
+    const [favorites, setFavorites] = store.useGlobalState("favorites")
+    const [singleItem, setSingleItem] = store.useGlobalState("singleItem")
+    const navigate = useNavigate()
+
+    const handleClick = (id:Item['id']) =>{
+        const inspect = favorites.some(elem => elem.id === id)
+        const currentItem = items.filter(elem => elem.id === id)
+        if (inspect){
+          const deletedArr = favorites.filter(elem => elem.id !== id) 
+          setFavorites(()=> deletedArr)
+          return
+        }
+        setFavorites((prev) => [...prev, ...currentItem])
+    }
+     const handleClickOnCard = async (event, id) => {
+        if(event.target.nodeName === "BUTTON"){
+          return
+        }
+        try{
+          if(!singleItem){
+            const response = await servicesApi.fetchSingleProduct(id) 
+            setSingleItem(response)
+            navigate(`/product/${id}`)
+          }
+        } catch(error){alert(error.message)}
+      }
+        
     return(
-        <ul className={s.list}>
-            {arr && arr.map(({id, name, src, price}) => {
-                return <li key={id}>
-                    <img src={src} alt={name} />
-                    <p>{name}</p>
-                    <p>`$`{price}</p>
-                    <button type='button'>fav</button>
-                </li>
+        <div className={s.list}>
+            {items.length > 0 && items.map(elem => {
+                return <ItemCard
+                 key={elem.id}
+                 item={elem} 
+                 styles={stylesCard} 
+                 handleClick={handleClick} 
+                 handleClickOnCard={handleClickOnCard} 
+                />
             })}
-        </ul>
+        </div> 
     )
 }
 

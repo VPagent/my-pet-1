@@ -10,12 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const fetchAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
     const { data } = yield axios.get("https://testbackend.nc-one.com/image");
-    console.log(data);
     return data;
 });
 const fetchSingleProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const { data } = yield axios.get(`https://testbackend.nc-one.com/image?id=${id}`);
-    console.log(data);
     return data;
 });
 const servicesApi = { fetchSingleProduct, fetchAllProducts };
