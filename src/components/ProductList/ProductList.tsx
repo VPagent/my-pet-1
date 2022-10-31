@@ -45,7 +45,7 @@ const ProductList: React.FC = (): JSX.Element => {
       alert(error.message);
     }
   };
-  const Row = ({ index, style }) => (
+  const Row = () => (
     <div  className={s.list} style={{ display: "flex" }}>
       {items.map((elem) => {
         return (
