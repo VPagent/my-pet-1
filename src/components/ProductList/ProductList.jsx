@@ -1,10 +1,10 @@
 import React from 'react';
 import s from '../ProductList/productList.module.scss';
-import ItemCard from '../ItemCard/ItemCard';
 import store from '../../globalState/store';
-import stylesCard from './cardStyles';
 import servicesApi from '../../services/API';
 import { useNavigate } from 'react-router-dom';
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -45,10 +45,14 @@ const ProductList = () => {
             alert(error.message);
         }
     });
-    return (<div className={s.list}>
-            {items.length > 0 && items.map(elem => {
-            return <ItemCard key={elem.id} item={elem} styles={stylesCard} handleClick={handleClick} handleClickOnCard={handleClickOnCard}/>;
-        })}
-        </div>);
+    const Row = ({ index, style }) => (<div className={s.list} style={style}>
+          Hello
+          
+                    </div>);
+    return (<AutoSizer>
+        {({ height, width }) => (<List className={s.list} height={height} itemCount={50} itemSize={35} width={width}>
+    {Row}
+  </List>)}
+  </AutoSizer>);
 };
 export default ProductList;

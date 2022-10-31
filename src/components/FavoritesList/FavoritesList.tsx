@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import {Item} from '../ProductList/ProductList'
 import servicesApi from '../../services/API';
 
-
 const FavoritesList:React.FC = ():JSX.Element=> {
     const [favorites, setFavorites] = store.useGlobalState("favorites")
     const [singleItem, setSingleItem] = store.useGlobalState("singleItem")
@@ -28,7 +27,6 @@ const FavoritesList:React.FC = ():JSX.Element=> {
           }
         } catch(error){alert(error.message)}
     }
-    
     return(
         <div className={s.list}>
             {favorites.length > 0 && favorites.map(elem => {
@@ -40,7 +38,7 @@ const FavoritesList:React.FC = ():JSX.Element=> {
                 handleClickOnCard={handleClickOnCard}
                 />
             })}
-        </div>
+        </div>  
     )
 }
 
